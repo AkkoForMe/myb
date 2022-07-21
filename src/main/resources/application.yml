@@ -1,0 +1,12 @@
+# tomcat服务
+server:
+  port: 8090
+spring:
+  thymeleaf:
+    cache: false # 开发时关闭缓存,不然没法看到实时页面
+    #模板的模式，支持 HTML, XML TEXT JAVASCRIPT
+    mode: HTML5 # 用非严格的 HTML
+    encoding: UTF-8 #编码 可不用配置
+    servlet:
+      content-type: text/html
+ 

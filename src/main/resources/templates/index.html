@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>摸鱼办公室</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摸鱼办</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .txt .el-textarea__inner {
+            text-align: left !important;
+            border: 0px !important;
+        }
+        html{
+            background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
+            height: 100%;
+        }
+       
+    </style>
 </head>
+
 <body>
-<pre><span th:text="${msg}"></span></pre>
+    <div id="app">
+        <transition name="el-zoom-in-center">
+            <div v-show="show2" class="transition-box">
+                <el-input type="textarea" class="txt" :autosize="true" :show-word-limit="true" :readonly="true"
+                    v-model="dataTxt"
+                    placeholder="请输入内容">
+                </el-input>
+
+            </div>
+        </transition>
+    </div>
 </body>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script> -->
+<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="js/vue.js"></script>
+<script src="js/index.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                show2: true,
+                dataTxt: ""
+            }
+        },
+        mounted() {
+            axios
+                .get('http://106.55.94.73:8090/myb')
+                .then(response => {
+                    this.dataTxt = response.data
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+
+
+        }
+    })
+</script>
+
 </html>

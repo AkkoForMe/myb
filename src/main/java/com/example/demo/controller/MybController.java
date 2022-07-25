@@ -47,9 +47,9 @@ public class MybController {
 		int year = calendar.get(Calendar.YEAR); // 当前年份
 		String str = sdf.format(new Date(calendar.getTimeInMillis()));
 		System.out.println("当前时间："+str);
-		calendar.add(Calendar.DATE, -925);
-		str = sdf.format(new Date(calendar.getTimeInMillis()));
-		System.out.println("疫情爆发时间："+str); // 2019-12-16
+//		calendar.add(Calendar.DATE, -925);
+//		str = sdf.format(new Date(calendar.getTimeInMillis()));
+//		System.out.println("疫情爆发时间："+str); // 2019-12-16
 		
 		calendar.setTimeInMillis(nowT);
 		str = sdf.format(new Date(calendar.getTimeInMillis()));

@@ -1,41 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>摸鱼办</title>
+    <title>摸鱼日报</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <style>
-        .txt .el-textarea__inner {
-            text-align: left !important;
-            border: 0px !important;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        html{
-            background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
+
+        html, body {
             height: 100%;
+            background: #f5f1e8;
+            font-family: 'Georgia', 'Times New Roman', 'KaiTi', '楷体', serif;
         }
-       
+
+        body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* 报纸容器 */
+        .newspaper-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fefdfb;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid #d4cfc4;
+        }
+
+        /* 报头 */
+        .newspaper-header {
+            background: linear-gradient(to bottom, #2c2416 0%, #1a1410 100%);
+            color: #f5f1e8;
+            padding: 30px 40px 20px;
+            border-bottom: 4px double #c9a961;
+            position: relative;
+        }
+
+        .newspaper-title {
+            font-size: 56px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'STKaiti', 'KaiTi', '楷体', serif;
+            margin-bottom: 10px;
+            color: #f5f1e8;
+        }
+
+        .newspaper-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #c9a961;
+            letter-spacing: 4px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .newspaper-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #a89f8d;
+            border-top: 1px solid #4a4238;
+            padding-top: 10px;
+        }
+
+        /* 装饰线 */
+        .decorative-line {
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                #2c2416 0px,
+                #2c2416 10px,
+                #c9a961 10px,
+                #c9a961 20px
+            );
+            margin: 20px 0;
+        }
+
+        /* 内容区域 */
+        .newspaper-content {
+            padding: 40px;
+        }
+
+        .main-article {
+            border: 2px solid #2c2416;
+            padding: 30px;
+            background: #fefdfb;
+            position: relative;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2c2416;
+        }
+
+        .article-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c2416;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .article-date {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 内容文本 */
+        .article-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2c2416;
+            text-align: justify;
+            column-count: 2;
+            column-gap: 40px;
+            column-rule: 1px solid #d4cfc4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .newspaper-title {
+                font-size: 36px;
+                letter-spacing: 6px;
+            }
+
+            .article-body {
+                column-count: 1;
+            }
+
+            .newspaper-content {
+                padding: 20px;
+            }
+
+            .main-article {
+                padding: 20px;
+            }
+        }
+
+        /* 加载动画 */
+        .fade-enter-active {
+            transition: all 0.8s ease;
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* 装饰角 */
+        .corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #c9a961;
+        }
+
+        .corner-decoration.top-left {
+            top: -2px;
+            left: -2px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.top-right {
+            top: -2px;
+            right: -2px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: -2px;
+            left: -2px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: -2px;
+            right: -2px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* 页脚 */
+        .newspaper-footer {
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 2px double #2c2416;
+            background: #f5f1e8;
+        }
     </style>
 </head>
 
 <body>
-    <div id="app">
-        <transition name="el-zoom-in-center">
-            <div v-show="show2" class="transition-box">
-                <el-input type="textarea" class="txt" :autosize="true" :show-word-limit="true" :readonly="true"
-                    v-model="dataTxt"
-                    placeholder="请输入内容">
-                </el-input>
-
+<div id="app">
+    <transition name="fade">
+        <div v-show="show2" class="newspaper-wrapper">
+            <!-- 报头 -->
+            <div class="newspaper-header">
+                <div class="newspaper-title">摸鱼日报</div>
+                <div class="newspaper-subtitle">THE MOYU DAILY NEWS</div>
+                <div class="newspaper-meta">
+                    <span>第 {{ issueNumber }} 期</span>
+                    <span>{{ currentDate }}</span>
+                    <span>今日宜：摸鱼</span>
+                </div>
             </div>
-        </transition>
-    </div>
+
+            <!-- 装饰线 -->
+            <div class="decorative-line"></div>
+
+            <!-- 内容区域 -->
+            <div class="newspaper-content">
+                <div class="main-article">
+                    <!-- 装饰角 -->
+                    <div class="corner-decoration top-left"></div>
+                    <div class="corner-decoration top-right"></div>
+                    <div class="corner-decoration bottom-left"></div>
+                    <div class="corner-decoration bottom-right"></div>
+
+                    <!-- 文章头部 -->
+                    <div class="article-header">
+                        <div class="article-title">今日要闻</div>
+                        <div class="article-date">{{ formattedDateTime }}</div>
+                    </div>
+
+                    <!-- 文章内容 -->
+                    <div class="article-body">{{ dataTxt || '正在加载今日内容...' }}</div>
+                </div>
+            </div>
+
+            <!-- 页脚 -->
+            <div class="newspaper-footer">
+                <p>本报纸每日更新 · 专注摸鱼资讯 · 传递快乐能量</p>
+            </div>
+        </div>
+    </transition>
+</div>
 </body>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script> -->
-<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script src="js/vue.js"></script>
 <script src="js/index.js"></script>
 <script src="js/axios.min.js"></script>
@@ -44,21 +263,46 @@
         el: '#app',
         data: function () {
             return {
-                show2: true,
-                dataTxt: ""
+                show2: false,
+                dataTxt: "",
+                currentDate: "",
+                formattedDateTime: "",
+                issueNumber: 1
             }
         },
         mounted() {
+            // 设置日期
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            this.currentDate = `${year}年${month}月${day}日`;
+            this.formattedDateTime = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+
+            // 计算期号（从2024年1月1日开始算起的天数）
+            const startDate = new Date('2024-01-01');
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            this.issueNumber = diffDays;
+
+            // 获取数据
             axios
-                .get('http://106.55.94.73:8090/myb')
+                .get('/myb')
                 .then(response => {
-                    this.dataTxt = response.data
+                    this.dataTxt = response.data;
+                    // 延迟显示，营造加载效果
+                    setTimeout(() => {
+                        this.show2 = true;
+                    }, 100);
                 })
-                .catch(function (error) { // 请求失败处理
+                .catch(function (error) {
                     console.log(error);
-                });
-
-
+                    this.dataTxt = "内容加载失败，请稍后再试...";
+                    this.show2 = true;
+                }.bind(this));
         }
     })
 </script>

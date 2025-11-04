@@ -1,0 +1,94 @@
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>I Love You</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 4rem;
+            letter-spacing: 2px;
+            margin-bottom: 2%;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-top: 2%;
+        }
+
+        .heart-container {
+            width: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2%;
+            height: 300px;
+            position: relative;
+        }
+
+        .hrt {
+            width: 200px;
+            height: 200px;
+            background-color: #d5093c;
+            box-shadow: 0 0 70px #d5093c;
+            animation: sport 1s infinite;
+            display: inline-block;
+            position: relative;
+        }
+
+        .lef {
+            border-radius: 100px;
+            position: absolute;
+            top: 0px;
+            left: 80px;
+        }
+
+        .rig {
+            border-radius: 100px;
+            position: absolute;
+            top: 0px;
+            left: 221px;
+        }
+
+        .cen {
+            transform: rotate(45deg);
+            position: absolute;
+            top: 69px;
+            left: 151px;
+        }
+
+        @keyframes sport {
+            0% {
+                transform: scale(1) rotate(45deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(45deg);
+            }
+            100% {
+                transform: scale(1) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>小心肝</h1>
+<h1 style="margin-top: 0px;">I Love You</h1>
+<p>My heart beats for you and only you.</p>
+<div class="heart-container">
+    <div class="hrt lef"></div>
+    <div class="hrt cen"></div>
+    <div class="hrt rig"></div>
+</div>
+
+
+</body></html>
